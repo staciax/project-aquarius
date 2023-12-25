@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd backend
+python manage.py startapp $1

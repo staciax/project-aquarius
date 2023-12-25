@@ -1,0 +1,5 @@
+#!/bin/sh -e
+set -x
+
+cd backend
+python manage.py makemigrations
