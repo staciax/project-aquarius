@@ -8,6 +8,7 @@ exclude = '''
     \.git
   | \.vscode
   | \.venv
+  | \.venv.nosync
   | \.pytest_cache
   | venv
 )/
@@ -21,6 +22,7 @@ line_length = 125
 skip = [
   "venv",
   ".venv",
+  ".venv.nosync",
   ".git",
   ".vscode",
   ".pytest_cache"
