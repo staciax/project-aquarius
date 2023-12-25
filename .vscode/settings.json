@@ -1,0 +1,20 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+    },
+    "isort.args": [
+        "--profile",
+        "black",
+        "--balanced",
+    ],
+    "files.exclude": {
+        "**/__pycache__": true,
+    },
+    "mypy.enabled": true,
+    "mypy.runUsingActiveInterpreter": true,
+    "mypy.configFile": "./pyproject.toml",
+}
