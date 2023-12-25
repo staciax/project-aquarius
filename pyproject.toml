@@ -1,0 +1,38 @@
+[tool.black]
+line-length = 125
+skip-string-normalization = true
+target-version = ["py312"]
+organize_imports = true
+exclude = '''
+/(
+    \.git
+  | \.vscode
+  | \.venv
+  | \.pytest_cache
+  | venv
+)/
+'''
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+combine_star = true
+line_length = 125
+skip = [
+  "venv",
+  ".venv",
+  ".git",
+  ".vscode",
+  ".pytest_cache"
+]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "django.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "rest_framework.*"
+ignore_missing_imports = true
