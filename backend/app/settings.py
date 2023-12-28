@@ -46,14 +46,15 @@ INSTALLED_APPS = [
     
     # Local apps
     'apps.address',
+    'apps.carts',
     'apps.customers',
-    'apps.products',
     'apps.genres',
     'apps.orders',
     'apps.payments',
-    'apps.tags',
     'apps.product_genres', 
     'apps.product_tags',
+    'apps.products',
+    'apps.tags',
 
     # Third party apps
     'rest_framework',
