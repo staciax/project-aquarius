@@ -4,8 +4,6 @@ from typing import Any
 
 from django.db import models
 
-# Create your models here.
-
 
 class Payment(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
