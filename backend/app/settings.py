@@ -43,9 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
-
+    
     # Local apps
-    'todo',
+    'apps.address',
+    'apps.customers',
+    'apps.products',
+    'apps.genres',
+    'apps.orders',
+    'apps.payments',
 
     # Third party apps
     'rest_framework',
