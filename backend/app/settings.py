@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'apps.genres',
     'apps.orders',
     'apps.payments',
+    'apps.tags',
+    'apps.product_genres', 
+    'apps.product_tags',
 
     # Third party apps
     'rest_framework',
