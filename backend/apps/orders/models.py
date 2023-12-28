@@ -1,10 +1,9 @@
 from typing import Any
 
-from apps.payments.models import Payment
-from apps.products.models import Product
 from django.db import models
 
-# Create your models here.
+from apps.payments.models import Payment
+from apps.products.models import Product
 
 
 class Order(models.Model):  # type: ignore
