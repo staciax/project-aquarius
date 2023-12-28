@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+django-admin startapp $1
