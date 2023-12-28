@@ -2,14 +2,22 @@ from typing import Any
 
 import bcrypt
 from rest_framework import serializers
+from rest_framework.fields import empty
+
+from apps.address.serializers import AddressSerializer
 
 from .models import Customer
+
+# TODO: read only model serializer
 
 
 class CustomerSerializer(serializers.ModelSerializer):  # type: ignore
     password = serializers.CharField(max_length=1024, write_only=True)
     password_hash = serializers.CharField(max_length=512, required=False, write_only=False)
     salt = serializers.CharField(max_length=128, required=False, write_only=False)
+    address = AddressSerializer(required=False, read_only=True)
+    # TODO: include the address serializer
+    # address = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Customer
@@ -24,6 +32,7 @@ class CustomerSerializer(serializers.ModelSerializer):  # type: ignore
             'phone_number',
             'created_at',
             'updated_at',
+            'address',
         )
         # NOTE: remove the password_hash and salt fields from the serializer
 
