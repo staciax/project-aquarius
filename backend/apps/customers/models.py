@@ -1,9 +1,8 @@
 from typing import Any
 
-from apps.address.models import Address
 from django.db import models
 
-# Create your models here.
+from apps.address.models import Address
 
 
 class Customer(models.Model):  # type: ignore
@@ -16,7 +15,7 @@ class Customer(models.Model):  # type: ignore
     phone_number = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    address = models.OneToOneField(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, related_name='customer')
 
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
