@@ -6,6 +6,8 @@ from . import views
 urlpatterns: list[path] = [
     path('', views.CartList.as_view()),
     path('<int:id>/', views.CartDetail.as_view()),
+    path('items/', views.CartItemList.as_view()),
+    path('items/<int:id>/', views.CartItemDetail.as_view()),
 ]
 
-urlpatterns = urlpatterns
+urlpatterns = format_suffix_patterns(urlpatterns)

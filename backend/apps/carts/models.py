@@ -8,8 +8,8 @@ from apps.customers.models import Customer
 class Cart(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='cart')
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return f'Cart of {self.customer}'
@@ -21,9 +21,14 @@ class Cart(models.Model):  # type: ignore
 
 class CartItem(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = models.ForeignKey(
+        Cart,
+        # primary_key=True,
+        on_delete=models.CASCADE,
+        related_name='items',
+    )
     product = models.IntegerField()
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,3 +42,6 @@ class CartItem(models.Model):  # type: ignore
 
     # def get_total(self) -> float:
     #     return self.product.price * self.quantity
+
+    class Meta:
+        unique_together = ('cart', 'product')
