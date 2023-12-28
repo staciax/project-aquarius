@@ -15,8 +15,6 @@ class Product(models.Model):  # type: ignore
     isbn = models.CharField(max_length=13)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     genres = models.ManyToManyField(
         Genre,
         through='product_genres.ProductGenre',
