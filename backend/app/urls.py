@@ -20,5 +20,14 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    # path('todo/', include('todo.urls')),
+    path('apps.address/', include('apps.address.urls')),
+    path('apps.carts/', include('apps.blog.urls')),
+    path('apps.customers/', include('apps.customers.urls')),
+    path('apps.genres/', include('apps.genres.urls')),
+    path('apps.orders/', include('apps.orders.urls')),
+    path('apps.payments/', include('apps.payments.urls')),
+    # path('apps.product_genres/', include('apps.product_genres.urls')),
+    # path('apps.product_tags/', include('apps.product_tags.urls')),
+    path('apps.products/', include('apps.products.urls')),
+    path('apps.tags/', include('apps.tags.urls')),
 ]
