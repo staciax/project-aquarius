@@ -37,7 +37,7 @@ class Order(models.Model):  # type: ignore
 class OrderItem(models.Model):  # type: ignore
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
