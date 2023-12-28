@@ -38,3 +38,7 @@ ignore_missing_imports = true
 [[tool.mypy.overrides]]
 module = "rest_framework.*"
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "apps.*.migrations.*"
+ignore_errors = true
