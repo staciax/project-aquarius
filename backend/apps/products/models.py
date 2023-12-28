@@ -1,7 +1,8 @@
 from typing import Any
 
-from apps.genres.models import Genre
 from django.db import models
+
+from apps.genres.models import Genre
 
 # Create your models here.
 
@@ -16,7 +17,16 @@ class Product(models.Model):  # type: ignore
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    genres = models.ManyToManyField(
+        Genre,
+        through='product_genres.ProductGenre',
+        related_name='products',
+    )
+    tags = models.ManyToManyField(
+        'tags.Tag',
+        through='product_tags.ProductTag',
+        related_name='products',
+    )
 
     def __str__(self) -> Any:
         return self.name
