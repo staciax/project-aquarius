@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.db import models
 
 
@@ -9,5 +11,15 @@ class Address(models.Model):  # type: ignore
     province = models.CharField(max_length=128)
     district = models.CharField(max_length=128)
     postal_code = models.CharField(max_length=5)
+    phone_number = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    customer = models.ForeignKey(
+        'customers.Customer',
+        on_delete=models.CASCADE,
+        related_name='address',
+    )
+
+    @property
+    def customer_id(self) -> Any:
+        return self.customer.id
