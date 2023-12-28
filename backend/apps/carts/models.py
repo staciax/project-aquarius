@@ -20,6 +20,7 @@ class Cart(models.Model):  # type: ignore
 
 
 class CartItem(models.Model):  # type: ignore
+    id = models.AutoField(primary_key=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.IntegerField()
     quantity = models.IntegerField()

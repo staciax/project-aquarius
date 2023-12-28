@@ -17,6 +17,9 @@ class Customer(models.Model):  # type: ignore
     updated_at = models.DateTimeField(auto_now=True)
     address = models.OneToOneField(Address, on_delete=models.CASCADE, related_name='customer')
 
+    # orders
+    # cart
+
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
 
