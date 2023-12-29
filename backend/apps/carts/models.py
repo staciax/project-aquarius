@@ -15,34 +15,19 @@ class Cart(models.Model):  # type: ignore
     def __str__(self) -> str:
         return f'Cart of {self.customer}'
 
-    @property
-    def customer_id(self) -> Any:
-        return self.customer.id
-
 
 class CartItem(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
     cart = models.ForeignKey(
         Cart,
         on_delete=models.CASCADE,
-        related_name='items',
+        related_name='items',  # TODO: remove this or not?
     )
     product = models.OneToOneField(
         Product,
         on_delete=models.CASCADE,
-        related_name='cart_items',
+        related_name='cart_items',  # TODO: remove this or not?
     )
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    @property
-    def cart_id(self) -> Any:
-        return self.cart.id
-
-    @property
-    def product_id(self) -> Any:
-        return self.product.id
-
-    # def get_total(self) -> float:
-    #     return self.product.price * self.quantity
