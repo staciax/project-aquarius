@@ -1,3 +1,3 @@
 from django.urls import path
 
-urlpatterns: list[path] = []  # type: ignore
+urlpatterns = []  # type: ignore
