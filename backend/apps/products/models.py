@@ -4,7 +4,9 @@ from django.db import models
 
 from apps.genres.models import Genre
 
-# Create your models here.
+
+def product_image_path(instance: Any, filename: str) -> str:
+    return f'products/{instance.product.id}/{filename}'
 
 
 class Product(models.Model):  # type: ignore
@@ -36,8 +38,8 @@ class Product(models.Model):  # type: ignore
 
 class ProductImage(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image_url = models.CharField(max_length=255)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to=product_image_path, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,8 +50,8 @@ class ProductImage(models.Model):  # type: ignore
 
 class ProductInventory(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='inventory')
+    quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
