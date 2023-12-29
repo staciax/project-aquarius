@@ -2,17 +2,15 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
-from apps.products.serializers import ProductSerializer
-
 from .models import Cart, CartItem
 
 
 class CartItemSerializer(serializers.ModelSerializer):  # type: ignore
-    # product = ProductSerializer(read_only=True)
-
     class Meta:
         model = CartItem
+        depth = 1
         fields = (
+            'id',
             'cart',
             'product',
             'quantity',
@@ -26,6 +24,7 @@ class CartSerializer(serializers.ModelSerializer):  # type: ignore
 
     class Meta:
         model = Cart
+        depth = 1
         fields = (
             'id',
             'customer',

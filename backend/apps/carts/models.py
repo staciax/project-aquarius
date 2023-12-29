@@ -3,6 +3,7 @@ from typing import Any
 from django.db import models
 
 from apps.customers.models import Customer
+from apps.products.models import Product
 
 
 class Cart(models.Model):  # type: ignore
@@ -23,11 +24,14 @@ class CartItem(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
     cart = models.ForeignKey(
         Cart,
-        # primary_key=True,
         on_delete=models.CASCADE,
         related_name='items',
     )
-    product = models.IntegerField()
+    product = models.OneToOneField(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='cart_items',
+    )
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -42,6 +46,3 @@ class CartItem(models.Model):  # type: ignore
 
     # def get_total(self) -> float:
     #     return self.product.price * self.quantity
-
-    class Meta:
-        unique_together = ('cart', 'product')
