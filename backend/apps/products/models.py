@@ -1,12 +1,15 @@
 from typing import Any
 
+from django.conf import settings
 from django.db import models
 
 from apps.genres.models import Genre
 
 
 def product_image_path(instance: Any, filename: str) -> str:
-    return f'products/{instance.product.id}/{filename}'
+    # fmt = filename.split('.')[-1]
+    # filename = filename.replace(fmt, '').replace('.', '')
+    return f'product_images/{instance.product.id}-{filename}'
 
 
 class Product(models.Model):  # type: ignore
@@ -39,7 +42,7 @@ class Product(models.Model):  # type: ignore
 class ProductImage(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to=product_image_path, null=True)
+    image = models.ImageField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

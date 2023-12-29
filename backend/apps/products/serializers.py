@@ -3,9 +3,7 @@ from typing import Any
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from rest_framework import serializers
 
-from apps.genres.serializers import GenreSerializer
 from apps.tags.models import Tag
-from apps.tags.serializers import TagSerializer
 
 from .models import Product, ProductImage, ProductInventory
 
@@ -51,8 +49,6 @@ class ProductInventorySerializer(serializers.ModelSerializer):  # type: ignore
 class ProductSerializer(serializers.ModelSerializer):  # type: ignore
     images = ProductImageSerializer(many=True, required=False)
     inventory = ProductInventorySerializer(read_only=True)
-    genres = GenreSerializer(many=True, required=False, read_only=True)
-    tags = TagSerializer(many=True, required=False, read_only=True)
 
     genre_ids = serializers.ListField(
         child=serializers.IntegerField(),
@@ -69,6 +65,7 @@ class ProductSerializer(serializers.ModelSerializer):  # type: ignore
 
     class Meta:
         model = Product
+        depth = 1
         fields = (
             'id',
             'name',
