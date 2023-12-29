@@ -9,7 +9,13 @@ from apps.products.models import Product
 
 class Order(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, default=None, null=True, related_name='orders')
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        related_name='orders',
+    )
     payment = models.OneToOneField(
         Payment,
         on_delete=models.CASCADE,
@@ -49,3 +55,6 @@ class OrderItem(models.Model):  # type: ignore
     @property
     def product_id(self) -> Any:
         return self.product.id
+
+
+# TODO: order details
