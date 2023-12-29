@@ -9,5 +9,11 @@ class Genre(models.Model):  # type: ignore
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, unique=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f'{self.name}'
+
+    class Meta:
+        ordering = ['name']
