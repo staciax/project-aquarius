@@ -42,7 +42,7 @@ class Product(models.Model):  # type: ignore
 class ProductImage(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to='media', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
