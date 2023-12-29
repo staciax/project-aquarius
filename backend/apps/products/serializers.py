@@ -4,6 +4,7 @@ from django.core.files.uploadedfile import TemporaryUploadedFile
 from rest_framework import serializers
 
 from apps.genres.serializers import GenreSerializer
+from apps.tags.serializers import TagSerializer
 
 from .models import Product, ProductImage, ProductInventory
 
@@ -47,10 +48,21 @@ class ProductInventorySerializer(serializers.ModelSerializer):  # type: ignore
 
 
 class ProductSerializer(serializers.ModelSerializer):  # type: ignore
-    # genre_id = serializers.IntegerField(required=False)
     images = ProductImageSerializer(many=True, required=False)
     inventory = ProductInventorySerializer(read_only=True)
-    genres = GenreSerializer(many=True, required=False)
+    genres = GenreSerializer(many=True, required=False, read_only=True)
+    tags = TagSerializer(many=True, required=False, read_only=True)
+
+    genre_ids = serializers.ListField(
+        child=serializers.IntegerField(),
+        write_only=True,
+        required=False,
+    )
+    tag_ids = serializers.ListField(
+        child=serializers.IntegerField(),
+        write_only=True,
+        required=True,
+    )
 
     class Meta:
         model = Product
@@ -66,19 +78,25 @@ class ProductSerializer(serializers.ModelSerializer):  # type: ignore
             'inventory',
             'genres',
             'tags',
+            'genre_ids',
+            'tag_ids',
         )
 
     def create(self, validated_data: dict[str, Any]) -> Any:
-        # genres = validated_data.pop('genres')
-        # print(genres)
-        # genre = Genre.objects.get(id=genre_id)
-        # print(genre)
+        genre_ids = validated_data.pop('genre_ids', [])
+        tag_ids = validated_data.pop('tag_ids', [])
         product = Product.objects.create(**validated_data)
-        product.genres.add(1)
-        product.genres.add(2)
-        # product.genres.add(3)
+
+        product.inventory = ProductInventory.objects.create(product=product)
+
+        for genre_id in genre_ids:
+            product.genres.add(genre_id)
+
+        # TODO: create by string
+        for tag_id in tag_ids:
+            product.tags.add(tag_id)
+
         return product
-        # return Product.objects.create(**validated_data)
 
     def update(self, instance: Any, validated_data: dict[str, Any]) -> Any:
         return super().update(instance, validated_data)
