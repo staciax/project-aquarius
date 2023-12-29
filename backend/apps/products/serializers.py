@@ -4,6 +4,7 @@ from django.core.files.uploadedfile import TemporaryUploadedFile
 from rest_framework import serializers
 
 from apps.genres.serializers import GenreSerializer
+from apps.tags.models import Tag
 from apps.tags.serializers import TagSerializer
 
 from .models import Product, ProductImage, ProductInventory
@@ -59,9 +60,9 @@ class ProductSerializer(serializers.ModelSerializer):  # type: ignore
         required=False,
     )
     tag_ids = serializers.ListField(
-        child=serializers.IntegerField(),
+        child=serializers.CharField(),
         write_only=True,
-        required=True,
+        required=False,
     )
 
     class Meta:
@@ -92,10 +93,9 @@ class ProductSerializer(serializers.ModelSerializer):  # type: ignore
         for genre_id in genre_ids:
             product.genres.add(genre_id)
 
-        # TODO: create by string
         for tag_id in tag_ids:
-            product.tags.add(tag_id)
-
+            tag, _ = Tag.objects.get_or_create(name=tag_id)
+            product.tags.add(tag)
         return product
 
     def update(self, instance: Any, validated_data: dict[str, Any]) -> Any:
