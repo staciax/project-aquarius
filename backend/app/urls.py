@@ -28,7 +28,6 @@ urlpatterns = (
     [
         path('admin/', admin.site.urls),
         # path('api-auth/', include('rest_framework.urls')),
-        path('address/', include('apps.address.urls')),
         path('carts/', include('apps.carts.urls')),
         path('customers/', include('apps.customers.urls')),
         path('genres/', include('apps.genres.urls')),
