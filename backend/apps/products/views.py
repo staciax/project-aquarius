@@ -1,7 +1,7 @@
 from typing import Any
 
-from rest_framework import generics, status
-from rest_framework.generics import get_object_or_404
+from rest_framework import generics, mixins, status
+from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -63,13 +63,37 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
 #     lookup_url_kwarg = 'id'
 
 
-class ProductInventoryList(generics.ListCreateAPIView):  # type: ignore
+class ProductInventoryCreateDetail(
+    mixins.CreateModelMixin,  # type: ignore
+    generics.RetrieveUpdateDestroyAPIView,  # type: ignore
+    GenericAPIView,  # type: ignore
+):
     queryset = ProductInventory.objects.all()
     serializer_class = ProductInventorySerializer
+    lookup_field = 'product'
+
+    def post(self, request: Request, product: int) -> Response:
+        request.data['product'] = product  # NOTE: bypass serializer validation
+        return super().create(request)
+
+    def get(self, request: Request, product: int) -> Response:
+        return super().retrieve(request, product)
+
+    def put(self, request: Request, product: int) -> Response:
+        request.data['product'] = product  # NOTE: bypass serializer validation
+        return super().update(request)
+
+    def delete(self, request: Request, product: int) -> Response:
+        return super().destroy(request, product)
 
 
-class ProductInventoryDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
-    queryset = ProductInventory.objects.all()
-    serializer_class = ProductInventorySerializer
-    lookup_field = 'id'
-    lookup_url_kwarg = 'id'
+# class ProductInventoryList(generics.ListCreateAPIView):  # type: ignore
+#     queryset = ProductInventory.objects.all()
+#     serializer_class = ProductInventorySerializer
+
+
+# class ProductInventoryDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
+#     queryset = ProductInventory.objects.all()
+#     serializer_class = ProductInventorySerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'id'

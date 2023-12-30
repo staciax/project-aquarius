@@ -42,11 +42,9 @@ class ProductInventorySerializer(serializers.ModelSerializer):  # type: ignore
             'created_at',
             'updated_at',
         )
-        read_only_fields = (
-            'product',
-            'created_at',
-            'updated_at',
-        )
+        extra_kwargs = {
+            'product': {'required': False},
+        }
 
 
 class ProductSerializer(serializers.ModelSerializer):  # type: ignore
