@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.http import Http404
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,18 +10,9 @@ from .models import Cart, CartItem
 from .serializers import CartItemSerializer, CartSerializer
 
 
-class CartList(APIView):  # type: ignore
-    def get(self, request: Request) -> Response:
-        cart = Cart.objects.all()
-        serializer = CartSerializer(cart, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request) -> Response:
-        serializer = CartSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class CartList(generics.ListCreateAPIView):  # type: ignore
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
 
 
 class CartDetail(APIView):  # type: ignore
@@ -79,24 +70,9 @@ class CartDetailByCustomer(APIView):  # type: ignore
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class CartItemList(APIView):  # type: ignore
-    def get(self, request: Request) -> Response:
-        cart_item = CartItem.objects.all()
-        serializer = CartItemSerializer(cart_item, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request) -> Response:
-        serializer = CartItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+class CartItemList(generics.ListCreateAPIView):  # type: ignore
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
 
 
 class CartItemDetail(APIView):  # type: ignore

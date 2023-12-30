@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.http import Http404
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,18 +10,9 @@ from .models import Product, ProductImage, ProductInventory
 from .serializers import ProductImageSerializer, ProductInventorySerializer, ProductSerializer
 
 
-class ProductList(APIView):  # type: ignore
-    def get(self, request: Request) -> Response:
-        product = Product.objects.all()
-        serializer = ProductSerializer(product, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request) -> Response:
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ProductList(generics.ListCreateAPIView):  # type: ignore
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 class ProductDetail(APIView):  # type: ignore
@@ -50,18 +41,9 @@ class ProductDetail(APIView):  # type: ignore
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ProductImageList(APIView):  # type: ignore
-    def get(self, request: Request) -> Response:
-        product_image = ProductImage.objects.all()
-        serializer = ProductImageSerializer(product_image, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request) -> Response:
-        serializer = ProductImageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ProductImageList(generics.ListCreateAPIView):  # type: ignore
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
 
 
 class ProductImageDetail(APIView):  # type: ignore
@@ -90,18 +72,9 @@ class ProductImageDetail(APIView):  # type: ignore
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ProductInventoryList(APIView):  # type: ignore
-    def get(self, request: Request) -> Response:
-        product_inventory = ProductInventory.objects.all()
-        serializer = ProductInventorySerializer(product_inventory, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request) -> Response:
-        serializer = ProductInventorySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ProductInventoryList(generics.ListCreateAPIView):  # type: ignore
+    queryset = ProductInventory.objects.all()
+    serializer_class = ProductInventorySerializer
 
 
 class ProductInventoryDetail(APIView):  # type: ignore

@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.http import Http404
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,18 +10,9 @@ from .models import Tag
 from .serializers import TagSerializer
 
 
-class TagList(APIView):  # type: ignore
-    def get(self, request: Request) -> Response:
-        tag = Tag.objects.all()
-        serializer = TagSerializer(tag, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request) -> Response:
-        serializer = TagSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TagList(generics.ListCreateAPIView):  # type: ignore
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class TagDetail(APIView):  # type: ignore
