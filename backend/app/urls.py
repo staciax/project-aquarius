@@ -19,6 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+handler400 = 'custom.exceptions.bad_request'
+handler403 = 'custom.exceptions.forbidden'
+handler404 = 'custom.exceptions.not_found'
+handler500 = 'custom.exceptions.server_error'
+
 urlpatterns = (
     [
         path('admin/', admin.site.urls),
