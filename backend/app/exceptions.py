@@ -29,7 +29,7 @@ def custom_exception_handler(exc: Exception, context: dict[str, Any]) -> Respons
     if response is None and isinstance(exc, Exception):
         return Response(
             {
-                'detail': str(exc),
+                'error': str(exc),
                 'status_code': status.HTTP_500_INTERNAL_SERVER_ERROR,
             },
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
