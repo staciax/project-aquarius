@@ -3,7 +3,7 @@ from typing import Any
 from rest_framework import serializers
 
 from . import utils
-from .models import Customer
+from .models import Customer, CustomerAddress
 
 # TODO: read only model serializer
 
@@ -55,3 +55,25 @@ class CustomerSerializer(serializers.ModelSerializer):  # type: ignore
             password_hash=password_hash,
             phone_number=validated_data['phone_number'],
         )
+
+
+class CustomerAddressSerializer(serializers.ModelSerializer):  # type: ignore
+    first_name = serializers.CharField(required=False, max_length=255)
+    last_name = serializers.CharField(required=False, max_length=255)
+    street_address = serializers.CharField(required=False, max_length=512)
+    province = serializers.CharField(required=False, max_length=128)
+    district = serializers.CharField(required=False, max_length=128)
+    postal_code = serializers.CharField(required=False, max_length=5)
+    phone_number = serializers.CharField(required=False, max_length=10)
+
+    class Meta:
+        model = CustomerAddress
+        fields = '__all__'
+        read_only_fields = (
+            'id',
+            'created_at',
+            'updated_at',
+        )
+        extra_kwargs = {
+            'customer': {'required': False},
+        }
