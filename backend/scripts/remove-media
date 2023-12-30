@@ -1,4 +1,4 @@
 #!/bin/sh -e
 set -x
 
-find . -path "./media/*" -delete
+find . -path "./public/media/*" -delete
