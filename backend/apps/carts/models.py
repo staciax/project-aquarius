@@ -22,11 +22,13 @@ class CartItem(models.Model):  # type: ignore
         Cart,
         on_delete=models.CASCADE,
         related_name='items',  # TODO: remove this or not?
+        # null=True,
     )
     product = models.OneToOneField(
         Product,
         on_delete=models.CASCADE,
         related_name='cart_items',  # TODO: remove this or not?
+        # null=True,
     )
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
