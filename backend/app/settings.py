@@ -29,8 +29,11 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# TODO: remove this in production
 
 ALLOWED_HOSTS = ['*']
+
+# TODO: remove '*' in production
 
 
 # Application definition
@@ -140,6 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 STATIC_URL = '/static/'
 MEDIA_URL = '/public/'
 MEDIA_ROOT = BASE_DIR / 'public'
+# NOTE: https://testdriven.io/blog/django-static-files/
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -152,3 +156,5 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
 }
+
+# TODO: loggging
