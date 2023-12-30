@@ -1,6 +1,3 @@
-from typing import Any
-
-from django.http import Http404
 from rest_framework import generics
 
 from .models import Tag
