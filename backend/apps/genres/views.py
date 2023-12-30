@@ -13,4 +13,3 @@ class GenreDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     lookup_field = 'id'
-    lookup_url_kwarg = 'id'

@@ -13,4 +13,3 @@ class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     lookup_field = 'id'
-    lookup_url_kwarg = 'id'
