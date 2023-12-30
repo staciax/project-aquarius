@@ -11,13 +11,6 @@ class Customer(models.Model):  # type: ignore
     phone_number = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # address = models.OneToOneField(Address, on_delete=models.CASCADE, related_name='customer')
-
-    # orders
-    # cart
-
-    # class Meta:
-    #     private_fields = ('salt',)
 
 
 class CustomerAddress(models.Model):  # type: ignore
@@ -36,9 +29,3 @@ class CustomerAddress(models.Model):  # type: ignore
         on_delete=models.CASCADE,
         related_name='address',
     )
-
-    # orders
-    # cart
-
-    # class Meta:
-    #     private_fields = ('salt',)
