@@ -155,7 +155,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
-    'EXCEPTION_HANDLER': 'app.utils.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'app.exceptions.custom_exception_handler'
 }
 
 # TODO: loggging
