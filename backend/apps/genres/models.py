@@ -15,5 +15,5 @@ class Genre(models.Model):  # type: ignore
     def __str__(self) -> str:
         return f'{self.name}'
 
-    class Meta:
-        ordering = ['name']
+    # class Meta:
+    #     ordering = ['name']
