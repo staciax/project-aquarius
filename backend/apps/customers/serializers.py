@@ -1,8 +1,8 @@
 from typing import Any
 
-import bcrypt
 from rest_framework import serializers
 
+from . import utils
 from .models import Customer
 
 # TODO: read only model serializer
@@ -46,10 +46,12 @@ class CustomerSerializer(serializers.ModelSerializer):  # type: ignore
         # NOTE: https://stackoverflow.com/questions/74391152/adding-permissions-to-user-on-the-serializer
 
     def create(self, validated_data: dict[str, Any]) -> Any:
-        salt = bcrypt.gensalt()
-        password: str = validated_data.pop('password')
-        hashed = bcrypt.hashpw(password.encode(), salt)
-        password_hash = hashed.replace(salt, b"")
-        validated_data['salt'] = salt.decode()
-        validated_data['password_hash'] = password_hash.decode()
-        return Customer.objects.create(**validated_data)
+        salt, password_hash = utils.hash_password(validated_data['password'])
+        return Customer.objects.create(
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email'],
+            salt=salt,
+            password_hash=password_hash,
+            phone_number=validated_data['phone_number'],
+        )
