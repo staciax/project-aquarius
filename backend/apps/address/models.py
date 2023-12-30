@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.db import models
 
 
@@ -19,7 +17,3 @@ class Address(models.Model):  # type: ignore
         on_delete=models.CASCADE,
         related_name='address',
     )
-
-    @property
-    def customer_id(self) -> Any:
-        return self.customer.id

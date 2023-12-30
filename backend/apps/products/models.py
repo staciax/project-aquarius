@@ -1,15 +1,6 @@
-from typing import Any
-
-from django.conf import settings
 from django.db import models
 
 from apps.genres.models import Genre
-
-
-def product_image_path(instance: Any, filename: str) -> str:
-    # fmt = filename.split('.')[-1]
-    # filename = filename.replace(fmt, '').replace('.', '')
-    return f'product_images/{instance.product.id}-{filename}'
 
 
 class Product(models.Model):  # type: ignore
@@ -31,13 +22,6 @@ class Product(models.Model):  # type: ignore
         related_name='products',
     )
 
-    def __str__(self) -> Any:
-        return self.name
-
-    @property
-    def genre_id(self) -> Any:
-        return self.genre.id
-
 
 class ProductImage(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
@@ -46,10 +30,6 @@ class ProductImage(models.Model):  # type: ignore
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    @property
-    def product_id(self) -> Any:
-        return self.product.id
-
 
 class ProductInventory(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
@@ -57,7 +37,3 @@ class ProductInventory(models.Model):  # type: ignore
     quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    @property
-    def product_id(self) -> Any:
-        return self.product.id

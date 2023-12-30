@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.db import models
 
 
@@ -17,13 +15,6 @@ class Customer(models.Model):  # type: ignore
 
     # orders
     # cart
-
-    def __str__(self) -> str:
-        return f'{self.first_name} {self.last_name}'
-
-    @property
-    def address_id(self) -> Any:
-        return self.address.id
 
     # class Meta:
     #     private_fields = ('salt',)

@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.db import models
 
 from apps.customers.models import Customer
@@ -11,9 +9,6 @@ class Cart(models.Model):  # type: ignore
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='cart')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self) -> str:
-        return f'Cart of {self.customer}'
 
 
 class CartItem(models.Model):  # type: ignore
