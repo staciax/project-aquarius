@@ -35,9 +35,9 @@ def custom_exception_handler(exc: Exception, context: dict[str, Any]) -> Respons
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
-    # if 'detail' in response.data:
-    #     response.data['error'] = response.data['detail']
-    #     del response.data['detail']
+    if 'detail' in response.data:
+        response.data['error'] = response.data['detail']
+        del response.data['detail']
     response.data['status_code'] = response.status_code
 
     print(exc)
