@@ -13,12 +13,14 @@ class CartDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'
 
 
 class CartDetailByCustomer(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     lookup_field = 'customer_id'
+    lookup_url_kwarg = 'customer_id'
 
 
 class CartItemList(generics.ListCreateAPIView):  # type: ignore
@@ -30,3 +32,4 @@ class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'

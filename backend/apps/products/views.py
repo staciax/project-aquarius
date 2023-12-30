@@ -13,6 +13,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'
 
 
 class ProductImageList(generics.ListCreateAPIView):  # type: ignore
@@ -24,6 +25,7 @@ class ProductImageDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'
 
 
 class ProductInventoryList(generics.ListCreateAPIView):  # type: ignore
@@ -35,3 +37,4 @@ class ProductInventoryDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ig
     queryset = ProductInventory.objects.all()
     serializer_class = ProductInventorySerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'

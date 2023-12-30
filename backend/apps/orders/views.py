@@ -13,9 +13,11 @@ class OrderDetailByCustomer(generics.RetrieveUpdateDestroyAPIView):  # type: ign
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     lookup_field = 'customer_id'
+    lookup_url_kwarg = 'customer_id'
 
 
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'

@@ -13,3 +13,4 @@ class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'id'
