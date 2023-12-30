@@ -29,8 +29,6 @@ urlpatterns = (
         path('genres/', include('apps.genres.urls')),
         path('orders/', include('apps.orders.urls')),
         path('payments/', include('apps.payments.urls')),
-        path('product_genres/', include('apps.product_genres.urls')),
-        path('product_tags/', include('apps.product_tags.urls')),
         path('products/', include('apps.products.urls')),
         path('tags/', include('apps.tags.urls')),
     ]
