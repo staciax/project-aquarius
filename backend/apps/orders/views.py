@@ -15,6 +15,12 @@ class OrderList(generics.ListCreateAPIView):  # type: ignore
     serializer_class = OrderSerializer
 
 
+class OrderDetailByCustomer(APIView):  # type: ignore
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    lookup_field = 'customer_id'
+
+
 class OrderDetail(APIView):  # type: ignore
     def get_order(self, id: int) -> Any:
         try:
