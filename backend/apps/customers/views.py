@@ -29,7 +29,7 @@ class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
 #     lookup_field = 'id'
 
 
-class CustomerAddressListDetail(
+class CustomerAddressCreateDetail(
     mixins.CreateModelMixin,  # type: ignore
     generics.RetrieveUpdateDestroyAPIView,  # type: ignore
     GenericAPIView,  # type: ignore
@@ -38,12 +38,12 @@ class CustomerAddressListDetail(
     serializer_class = CustomerAddressSerializer
     lookup_field = 'customer'
 
-    def get(self, request: Request, customer: int) -> Response:
-        return super().retrieve(request, customer)
-
     def post(self, request: Request, customer: int) -> Response:
         request.data['customer'] = customer  # NOTE: bypass serializer validation
         return super().create(request)
+
+    def get(self, request: Request, customer: int) -> Response:
+        return super().retrieve(request, customer)
 
     def put(self, request: Request, customer: int) -> Response:
         request.data['customer'] = customer  # NOTE: bypass serializer validation
