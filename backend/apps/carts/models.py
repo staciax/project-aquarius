@@ -22,7 +22,7 @@ class CartItem(models.Model):  # type: ignore
     product = models.OneToOneField(
         Product,
         on_delete=models.CASCADE,
-        related_name='cart_items',  # TODO: remove this or not?
+        # related_name='cart_items',  # TODO: remove this or not?
         # null=True,
     )
     quantity = models.IntegerField(default=1)
