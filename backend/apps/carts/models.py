@@ -10,6 +10,9 @@ class Cart(models.Model):  # type: ignore
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'carts'
+
 
 class CartItem(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
@@ -28,3 +31,6 @@ class CartItem(models.Model):  # type: ignore
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cart_items'

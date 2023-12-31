@@ -12,6 +12,9 @@ class Customer(models.Model):  # type: ignore
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'customers'
+
 
 class CustomerAddress(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
@@ -29,3 +32,6 @@ class CustomerAddress(models.Model):  # type: ignore
         on_delete=models.CASCADE,
         related_name='address',
     )
+
+    class Meta:
+        db_table = 'customer_addresses'

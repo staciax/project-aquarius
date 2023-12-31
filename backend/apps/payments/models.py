@@ -8,3 +8,6 @@ class Payment(models.Model):  # type: ignore
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # order = models.ForeignKey('orders.Order', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'payments'

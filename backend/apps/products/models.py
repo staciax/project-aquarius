@@ -12,6 +12,7 @@ class Product(models.Model):  # type: ignore
     # available = models.BooleanField(default=True) # TODO: add this field later
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # published_at = models.DateTimeField(null=True, default=None)
     genres = models.ManyToManyField(
         Genre,
         through='product_genres.ProductGenre',
@@ -23,6 +24,10 @@ class Product(models.Model):  # type: ignore
         related_name='products',
     )
 
+    class Meta:
+        db_table = 'products'
+        # ordering = ['name']
+
 
 class ProductImage(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
@@ -31,6 +36,9 @@ class ProductImage(models.Model):  # type: ignore
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'product_images'
+
 
 class ProductInventory(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
@@ -38,6 +46,9 @@ class ProductInventory(models.Model):  # type: ignore
     quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'product_inventories'
 
 
 # TODO: product stats
