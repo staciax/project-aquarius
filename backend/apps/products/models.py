@@ -9,6 +9,7 @@ class Product(models.Model):  # type: ignore
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     isbn = models.CharField(max_length=13)
+    # available = models.BooleanField(default=True) # TODO: add this field later
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     genres = models.ManyToManyField(
@@ -37,3 +38,6 @@ class ProductInventory(models.Model):  # type: ignore
     quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+# TODO: product stats

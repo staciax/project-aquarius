@@ -21,7 +21,7 @@ class Order(models.Model):  # type: ignore
         default=None,
         related_name='order',
     )
-    status = models.CharField(max_length=128)
+    # status = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     preparing_at = models.DateTimeField(null=True, default=None)
@@ -32,7 +32,7 @@ class Order(models.Model):  # type: ignore
 
 class OrderItem(models.Model):  # type: ignore
     id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
