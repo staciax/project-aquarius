@@ -3,6 +3,7 @@ from typing import Any
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status, viewsets
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -70,8 +71,10 @@ class ProductViewSet(viewsets.ModelViewSet):  # type: ignore
     lookup_field = 'id'
 
     # filters
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
     filterset_fields = ('is_available', 'genre', 'tags')
+    ordering_fields = ('id', 'title', 'price', 'created_at')
+    search_fields = ('title', 'description', 'author')
 
     def get_serializer_class(self) -> Any:
         if self.action in ('list', 'retrieve'):
