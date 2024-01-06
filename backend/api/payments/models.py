@@ -1,4 +1,14 @@
+from __future__ import annotations
+
 from django.db import models
+
+from api.utils import get_media_filename
+
+
+def get_receipt_path(instance: Payment, filename: str) -> str:
+    filename = get_media_filename(filename, prefix=str(instance.order.id))
+    print(filename, str(instance.order.id))
+    return f'receipt/{filename}'
 
 
 class PaymentStatus(models.TextChoices):  # type: ignore
@@ -17,7 +27,7 @@ class Payment(models.Model):  # type: ignore
         choices=PaymentStatus,
     )  # TODO: choices or table for payment status
     paid_at = models.DateTimeField(null=True, blank=True)
-    receipt = models.ImageField(upload_to='receipts', null=True, blank=True)
+    receipt = models.ImageField(upload_to=get_receipt_path, null=True, blank=True)  # TODO: save to private path
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
