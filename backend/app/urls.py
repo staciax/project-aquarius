@@ -27,14 +27,7 @@ handler500 = 'app.exceptions.server_error'
 urlpatterns = (
     [
         path('admin/', admin.site.urls),
-        # path('api-auth/', include('rest_framework.urls')),
-        path('carts/', include('apps.carts.urls')),
-        path('customers/', include('apps.customers.urls')),
-        path('genres/', include('apps.genres.urls')),
-        path('orders/', include('apps.orders.urls')),
-        path('payments/', include('apps.payments.urls')),
-        path('products/', include('apps.products.urls')),
-        path('tags/', include('apps.tags.urls')),
+        path('', include('api.urls')),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
