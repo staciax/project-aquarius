@@ -2,4 +2,5 @@
 
 set -e
 
-python manage.py runserver
+# python manage.py runserver
+uvicorn app.asgi:application --reload
