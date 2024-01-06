@@ -1,0 +1,79 @@
+#!/bin/sh -e
+
+name="$1"
+
+cd api
+mkdir $name
+cd $name
+
+# model class name
+model_class=$(echo $name | perl -pe 's/(?:\b|_)(\p{Ll})/\u$1/g')
+
+# remove latest 's' from class name
+if [ "${model_class: -1}" = "s" ]; then
+    n=`expr "$model_class" : "$model_class"`
+    model_class=${model_class:0:$n-1}
+fi
+
+table_name=${name}
+serializer_class=${model_class}Serializer
+viewset_class=${model_class}ViewSet
+
+touch __init__.py
+
+# models.py
+
+touch models.py
+echo "from django.db import models
+
+
+class $model_class(models.Model):  # type: ignore
+    class Meta:
+        db_table = '$table_name'" > models.py
+
+# serializers.py
+
+touch serializers.py
+echo "from rest_framework import serializers
+
+from .models import $model_class
+
+
+class $serializer_class(serializers.ModelSerializer):  # type: ignore
+    class Meta:
+        model = $model_class
+        fields = '__all__'" > serializers.py
+
+# views.py
+ 
+touch views.py
+echo "from rest_framework import viewsets
+
+from .models import $model_class
+from .serializers import $serializer_class
+
+
+class $viewset_class(viewsets.ModelViewSet):  # type: ignore
+    queryset = $model_class.objects.all()
+    serializer_class = $serializer_class
+    lookup_field = 'id'" > views.py
+
+# url.py
+
+touch urls.py
+echo "from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+
+from . import views
+
+router = DefaultRouter()
+router.register(r'$name', views.$viewset_class)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]" > urls.py
+
+# format code
+
+black .
+isort . --balanced
