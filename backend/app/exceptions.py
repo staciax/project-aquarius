@@ -4,6 +4,7 @@ from django.db.utils import IntegrityError
 from django.http import HttpRequest
 from django.http.response import JsonResponse
 from rest_framework import status
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
@@ -35,10 +36,25 @@ def custom_exception_handler(exc: Exception, context: dict[str, Any]) -> Respons
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
+    if response is None:
+        return Response(
+            {
+                'error': 'Server Error.',
+                'status_code': status.HTTP_500_INTERNAL_SERVER_ERROR,
+            },
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+    if isinstance(exc, APIException):
+        response.data = {
+            'error': exc.detail[0] if len(exc.detail) == 1 and isinstance(exc.detail, list) else exc.detail,
+            'status_code': exc.status_code,
+        }
+
     # rename 'detail' key to 'error'
-    if 'detail' in response.data:
+    if response is not None and isinstance(response.data, dict) and 'detail' in response.data:
         response.data['error'] = response.data['detail']
         del response.data['detail']
-    response.data['status_code'] = response.status_code
+        response.data['status_code'] = response.status_code
 
     return response
