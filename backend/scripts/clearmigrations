@@ -1,8 +1,8 @@
 #!/bin/sh -e
 set -x
 
-find . -path "./apps/*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "./apps/*/migrations/*.pyc"  -delete
+find . -path "./api/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "./api/migrations/*.pyc"  -delete
 # rm -rf db.sqlite3
 
 # https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html
