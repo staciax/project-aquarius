@@ -6,7 +6,7 @@ from django.db.models.functions import Now
 
 def upload_to(instance: ProductImage, filename: str) -> str:
     filename = (instance.product.title.lower() + '-' + filename.lower()).replace(' ', '_').replace('-', '_')
-    return 'media/{0}'.format(filename)
+    return '{0}'.format(filename)
 
 
 class Product(models.Model):  # type: ignore
