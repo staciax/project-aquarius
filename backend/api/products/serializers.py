@@ -66,7 +66,7 @@ class ProductReadSerializer(serializers.ModelSerializer):  # type: ignore
             'created_at',
             'updated_at',
         )
-        # depth = 1
+        depth = 1
 
 
 class ProductUpdateSerializer(serializers.ModelSerializer):  # type: ignore
