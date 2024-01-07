@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.functions import Now
 
 
-class CustomUserManager(BaseUserManager):
+class CustomUserManager(BaseUserManager):  # type: ignore
     def create_user(self, email: str, password: str, **extra_fields: Any) -> Any:
         email = self.normalize_email(email)
         user = self.model(
@@ -30,7 +30,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):  # type: ignore
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
     email = models.EmailField(unique=True, max_length=255)
@@ -45,10 +45,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = []  # type: ignore
 
     def __str__(self) -> str:
-        return self.email
+        return f'{self.email}'
 
     class Meta:
         db_table = 'users'

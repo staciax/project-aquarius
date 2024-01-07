@@ -26,7 +26,7 @@ admin.site.register(Tag)
 
 
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):  # type: ignore
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         obj.set_password(obj.password)
-        return super().save_model(request, obj, form, change)
+        return super().save_model(request, obj, form, change)  # type: ignore

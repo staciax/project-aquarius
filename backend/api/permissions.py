@@ -5,12 +5,12 @@ from rest_framework.views import APIView
 from api.user.models import User
 
 
-class IsSuperUser(permissions.BasePermission):
+class IsSuperUser(permissions.BasePermission):  # type: ignore
     def has_permission(self, request: Request, view: APIView) -> bool:
         return bool(request.user and request.user.is_superuser)
 
 
-class BaseAPIPermission(permissions.DjangoModelPermissions):
+class BaseAPIPermission(permissions.DjangoModelPermissions):  # type: ignore
     perms_map = {
         'GET': ['%(app_label)s.view_%(model_name)s'],
         'OPTIONS': [],
@@ -22,7 +22,7 @@ class BaseAPIPermission(permissions.DjangoModelPermissions):
     }
 
     def has_permission(self, request: Request, view: APIView) -> bool:
-        return super().has_permission(request, view)
+        return super().has_permission(request, view) and request.user.is_active  # type: ignore
 
 
 class IsCustomer(BaseAPIPermission):

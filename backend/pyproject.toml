@@ -10,7 +10,8 @@ exclude = '''
   | \.venv
   | \.venv.nosync
   | \.pytest_cache
-  | venvm
+  | \.mypy_cache
+  | venv
   | migrations
 )/
 '''
@@ -27,6 +28,7 @@ skip = [
   ".git",
   ".vscode",
   ".pytest_cache",
+  ".mypy_cache",
   "migrations",
 ]
 

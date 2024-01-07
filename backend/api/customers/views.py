@@ -20,5 +20,5 @@ class CustomerViewSet(viewsets.ModelViewSet):  # type: ignore
             return CustomerUpdateSerializer
         return super().get_serializer_class()
 
-    def perform_create(self, serializer) -> None:
+    def perform_create(self, serializer: Any) -> None:
         serializer.save(user=self.request.user)

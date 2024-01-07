@@ -41,7 +41,7 @@ class CartItemReadSerializer(CartItemSerializer):
         # depth = 1
 
 
-class CartItemCreateSerializer(CartItemSerializer):  # type: ignore
+class CartItemCreateSerializer(CartItemSerializer):
     quantity = serializers.IntegerField(min_value=1, max_value=10)
 
     class Meta:
@@ -60,7 +60,7 @@ class CartItemCreateSerializer(CartItemSerializer):  # type: ignore
         }
 
 
-class CartItemUpdateSerializer(CartItemSerializer):  # type: ignore
+class CartItemUpdateSerializer(CartItemSerializer):
     quantity = serializers.IntegerField(min_value=1, max_value=10)
 
     class Meta:

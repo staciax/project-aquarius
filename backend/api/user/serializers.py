@@ -11,13 +11,12 @@ class BaseUserSerializer(serializers.ModelSerializer):  # type: ignore
         user = super().create(validated_data)
         user.set_password(password)
         user.save()
-        return user
+        return user  # type: ignore
 
 
-class UserSerializer(BaseUserSerializer):  # type: ignore
+class UserSerializer(BaseUserSerializer):
     class Meta:
         model = User
-        fields = '__all__'
         fields = (
             'id',
             'first_name',
@@ -42,7 +41,7 @@ class UserSerializer(BaseUserSerializer):  # type: ignore
         )
 
 
-class UserRegiserSerializer(BaseUserSerializer):  # type: ignore
+class UserRegiserSerializer(BaseUserSerializer):
     first_name = serializers.CharField(max_length=128)
     last_name = serializers.CharField(max_length=128)
     email = serializers.EmailField(max_length=255)
@@ -50,7 +49,6 @@ class UserRegiserSerializer(BaseUserSerializer):  # type: ignore
 
     class Meta:
         model = User
-        fields = '__all__'
         fields = (
             'first_name',
             'last_name',
@@ -58,7 +56,7 @@ class UserRegiserSerializer(BaseUserSerializer):  # type: ignore
             'password',
         )
 
-    def validate(self, attrs):
+    def validate(self, attrs: Any) -> Any:
         email_exists = User.objects.filter(email=attrs['email']).exists()
         if email_exists:
             raise serializers.ValidationError({'email': 'Email is already in use'})
