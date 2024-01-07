@@ -1,6 +1,5 @@
 from api.address.models import Address as Address
 from api.cart.models import Cart as Cart, CartItem as CartItem
-from api.customers.models import Customer as Customer
 from api.genres.models import Genre as Genre
 from api.orders.models import Order as Order, OrderItem as OrderItem
 from api.payments.models import Payment as Payment

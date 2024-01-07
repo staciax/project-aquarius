@@ -11,7 +11,7 @@ class OrderStatus(models.TextChoices):  # type: ignore
 
 
 class Order(models.Model):  # type: ignore
-    customer = models.ForeignKey('api.Customer', on_delete=models.CASCADE, related_name='orders')
+    user = models.ForeignKey('api.User', on_delete=models.CASCADE, related_name='orders')
     status = models.CharField(
         max_length=32,
         choices=OrderStatus,

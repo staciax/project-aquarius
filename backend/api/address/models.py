@@ -12,8 +12,8 @@ class Address(models.Model):  # type: ignore
     postal_code = models.CharField(max_length=5, null=True, db_default=None)
     created_at = models.DateTimeField(auto_now_add=True, db_default=Now())
     updated_at = models.DateTimeField(auto_now=True, db_default=Now())
-    customer = models.OneToOneField(
-        'api.Customer',
+    user = models.OneToOneField(
+        'api.User',
         on_delete=models.CASCADE,  # หมายถึงถ้าลูกค้าถูกลบ ที่อยู่ของลูกค้าจะถูกลบไปด้วย
         null=True,
         db_default=None,

@@ -3,7 +3,7 @@ from django.db.models.functions import Now
 
 
 class Cart(models.Model):  # type: ignore
-    customer = models.OneToOneField('api.Customer', on_delete=models.CASCADE, related_name='cart')
+    user = models.OneToOneField('api.User', on_delete=models.CASCADE, related_name='cart')
 
     # NOTE: in my db design 'created_at' and 'updated_at' are not required
     #      but I'm adding them here for consistency
