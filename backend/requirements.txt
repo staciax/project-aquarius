@@ -3,7 +3,6 @@ django-filter==23.5
 djangorestframework==3.14.*
 djangorestframework-simplejwt[crypto]==5.3.1
 python-dotenv==1.0.*
-bcrypt==4.1.*
 Pillow==10.2.*
 uvicorn>=0.25.0
 mysqlclient==2.2.*
