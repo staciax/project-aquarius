@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.db.models.functions import Now
 
@@ -15,7 +15,6 @@ class CustomUserManager(BaseUserManager):
         )
         user.set_password(password)
         user.save()
-
         return user
 
     def create_superuser(self, email: str, password: str, **extra_fields: Any) -> Any:
