@@ -33,12 +33,11 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
-    email = models.EmailField(unique=True, max_length=320)
-    is_customer = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now=True)
+    email = models.EmailField(unique=True, max_length=255)
     is_staff = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    phone_number = models.CharField(max_length=10, null=True, db_default=None)
     created_at = models.DateTimeField(auto_now_add=True, db_default=Now())
     updated_at = models.DateTimeField(auto_now=True, db_default=Now())
 
