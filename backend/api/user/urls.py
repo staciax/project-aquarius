@@ -8,9 +8,9 @@ router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('users/', views.UserList.as_view()),
+    path('register/', views.UserRegisterView.as_view()),
+    path('login/', views.UserLoginView.as_view()),
     # path('users/login/', views.user_login),
-    # path('users/register/', views.user_register),
     # path('users/logout/', views.user_logout),
     # path('users/forgot-password/', views.user_forgot_password),
 ]
