@@ -1,6 +1,5 @@
 from typing import Any
 
-from django.db.utils import IntegrityError
 from django.http import HttpRequest
 from django.http.response import JsonResponse
 from rest_framework import status
@@ -26,7 +25,7 @@ def server_error(request: HttpRequest, *args: Any, **kwargs: Any) -> JsonRespons
 
 
 def custom_exception_handler(exc: Exception, context: dict[str, Any]) -> Response:
-    response = exception_handler(exc, (IntegrityError))
+    response = exception_handler(exc, context)
     if response is None and isinstance(exc, Exception):
         return Response(
             {
