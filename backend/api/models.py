@@ -7,3 +7,4 @@ from api.payments.models import Payment as Payment
 from api.product_tagging.models import ProductTagging as ProductTagging
 from api.products.models import Product as Product, ProductImage as ProductImage
 from api.tags.models import Tag as Tag
+from api.user.models import User as User
