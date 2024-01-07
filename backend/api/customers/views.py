@@ -19,3 +19,6 @@ class CustomerViewSet(viewsets.ModelViewSet):  # type: ignore
         elif self.action in ('update', 'partial_update'):
             return CustomerUpdateSerializer
         return super().get_serializer_class()
+
+    def perform_create(self, serializer) -> None:
+        serializer.save(user=self.request.user)
