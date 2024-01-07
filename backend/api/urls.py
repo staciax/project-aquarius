@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.urls import include, path
 
 urlpatterns = [
+    path('', include('api.user.urls')),
     path('', include('api.address.urls')),
     path('', include('api.cart.urls')),
     path('', include('api.customers.urls')),
