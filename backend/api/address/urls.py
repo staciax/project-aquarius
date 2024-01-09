@@ -8,4 +8,5 @@ router.register(r'address', views.AddressViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('address/@me', views.AddressMeView.as_view()),
 ]
