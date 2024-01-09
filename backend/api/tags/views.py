@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from api.permissions import IsSuperUser
+from api.permissions import IsSuperUserOrReadOnly
 
 from .models import Tag
 from .serializers import TagSerializer
@@ -11,4 +11,4 @@ class TagViewSet(viewsets.ModelViewSet):  # type: ignore
     serializer_class = TagSerializer
     lookup_field = 'id'
 
-    permission_classes = [IsSuperUser]
+    permission_classes = [IsSuperUserOrReadOnly]
