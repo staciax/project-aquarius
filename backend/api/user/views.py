@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth import authenticate
 from rest_framework import status, viewsets
 from rest_framework.permissions import AllowAny
@@ -5,10 +7,9 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.permissions import IsSuperUser
-
 from .models import User
-from .serializers import UserRegiserSerializer, UserSerializer
+from .permissions import IsSuperUserOrIsOwner
+from .serializers import UserReadByCustomerSerializer, UserRegiserSerializer, UserSerializer
 from .tokens import get_tokens_for_user
 
 
@@ -20,7 +21,7 @@ class UserRegisterView(APIView):  # type: ignore
     def post(self, request: Request) -> Response:
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(is_customer=True)
+        serializer.save()
         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
 
 
@@ -41,7 +42,7 @@ class UserLoginView(APIView):  # type: ignore
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # serializer = UserSerializer(user)
+        # serializer = UserLoginSerializer(user)
 
         tokens = get_tokens_for_user(user)
 
@@ -53,4 +54,9 @@ class UserViewSet(viewsets.ModelViewSet):  # type: ignore
     serializer_class = UserSerializer
     lookup_field = 'id'
 
-    permission_classes = [IsSuperUser]
+    permission_classes = [IsSuperUserOrIsOwner]
+
+    def get_serializer_class(self) -> Any:
+        if not self.request.user.is_superuser:
+            return UserReadByCustomerSerializer
+        return super().get_serializer_class()
