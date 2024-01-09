@@ -7,7 +7,6 @@ from api.utils import get_media_filename
 
 def get_receipt_path(instance: Payment, filename: str) -> str:
     filename = get_media_filename(filename, prefix=str(instance.order.id))
-    print(filename, str(instance.order.id))
     return f'receipt/{filename}'
 
 
