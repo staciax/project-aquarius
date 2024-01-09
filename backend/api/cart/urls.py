@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('cart/<int:cart_id>/items/', views.CartItemListCreateView.as_view()),
     path('cart/<int:cart>/items/<int:product>/', views.CartItemDetail.as_view()),
+    path('cart/@me', views.CartMeView.as_view()),
 ]

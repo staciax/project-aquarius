@@ -94,7 +94,7 @@ class CartSerializer(serializers.ModelSerializer):  # type: ignore
         model = Cart
         fields = (
             'id',
-            'customer',
+            'user',
             'items',
             'total_price',
             'item_count',
@@ -102,6 +102,8 @@ class CartSerializer(serializers.ModelSerializer):  # type: ignore
             'updated_at',
         )
         read_only_fields = (
+            'id',
+            'user',
             'items',
             'total_price',
             'item_count',
@@ -115,7 +117,7 @@ class CartReadSerializer(CartSerializer):
         model = Cart
         fields = (
             'id',
-            'customer',
+            'user',
             'items',
             'total_price',
             'item_count',

@@ -1,11 +1,14 @@
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from rest_framework import generics, viewsets
 from rest_framework.generics import get_object_or_404
-from rest_framework.request import Request
-from rest_framework.response import Response
+
+from api.permissions import IsCustomer
 
 from .models import Cart, CartItem
+from .permissions import CartPermission
 from .serializers import (
     CartItemCreateSerializer,
     CartItemReadSerializer,
@@ -15,16 +18,25 @@ from .serializers import (
     CartSerializer,
 )
 
+if TYPE_CHECKING:
+    from rest_framework.request import Request
+    from rest_framework.response import Response
+
 
 class CartViewSet(viewsets.ModelViewSet):  # type: ignore
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     lookup_field = 'id'
 
+    permission_classes = (CartPermission,)
+
     def get_serializer_class(self) -> Any:
         if self.action in ('list', 'retrieve'):
             return CartReadSerializer
         return super().get_serializer_class()
+
+    def perform_create(self, serializer: CartSerializer) -> None:
+        serializer.save(user=self.request.user)
 
 
 class CartItemListCreateView(generics.ListCreateAPIView):  # type: ignore
@@ -65,3 +77,13 @@ class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):  # type: ignore
         obj = get_object_or_404(queryset, **filter)
         self.check_object_permissions(self.request, obj)
         return obj
+
+
+class CartMeView(generics.RetrieveAPIView):  # type: ignore
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
+    def get_object(self) -> Any:
+        return self.request.user.cart
+
+    permission_classes = (IsCustomer,)
