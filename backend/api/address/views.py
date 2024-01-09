@@ -1,7 +1,8 @@
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from rest_framework import serializers, viewsets
-from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,6 +11,9 @@ from api.permissions import IsCustomer
 from .models import Address
 from .permissions import AddressPermission
 from .serializers import AddressSerializer
+
+if TYPE_CHECKING:
+    from rest_framework.request import Request
 
 
 class AddressViewSet(viewsets.ModelViewSet):  # type: ignore

@@ -1,9 +1,14 @@
-from rest_framework.request import Request
-from rest_framework.viewsets import GenericViewSet
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from api.permissions import IsCustomer
 
-from .models import Address
+if TYPE_CHECKING:
+    from rest_framework.request import Request
+    from rest_framework.viewsets import GenericViewSet
+
+    from .models import Address
 
 
 class AddressPermission(IsCustomer):
