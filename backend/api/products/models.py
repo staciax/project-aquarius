@@ -16,14 +16,14 @@ class Product(models.Model):  # type: ignore
     description = models.TextField(default='', blank=True)
     author = models.CharField(max_length=128)
     published_at = models.DateTimeField()
-    price = models.DecimalField(max_digits=10, decimal_places=2, db_default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     isbn = models.CharField(max_length=13, unique=True)
-    quantity = models.PositiveIntegerField(db_default=0)
-    is_available = models.BooleanField(db_default=True)
+    quantity = models.PositiveIntegerField(default=0)
+    is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, db_default=Now())
     updated_at = models.DateTimeField(auto_now=True, db_default=Now())
 
-    genre = models.ForeignKey('api.Genre', on_delete=models.SET_NULL, null=True, db_default=None)
+    genre = models.ForeignKey('api.Genre', on_delete=models.SET_NULL, null=True, default=None)
     tags = models.ManyToManyField('api.Tag', through='api.ProductTagging')
 
     class Meta:
