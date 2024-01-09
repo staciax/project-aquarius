@@ -5,6 +5,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from api.permissions import IsCustomer
+
 from .models import Address
 from .permissions import AddressPermission
 from .serializers import AddressSerializer
@@ -30,3 +32,5 @@ class AddressMeView(APIView):  # type: ignore
     def get(self, request: Request) -> Response:
         serializer = AddressSerializer(request.user.addresses, many=True)
         return Response(serializer.data)
+
+    permission_classes = (IsCustomer,)
